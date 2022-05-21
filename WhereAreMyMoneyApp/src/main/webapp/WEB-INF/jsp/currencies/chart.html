@@ -1,0 +1,78 @@
+<html>
+<head>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
+    <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
+    <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
+    <style type="text/css">
+
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="container"></div>
+
+<script>
+
+    anychart.onDocumentReady(function () {
+
+        var PLN = Number(document.getElementById("PLN_value").innerText)
+        var EUR = Number(document.getElementById("EUR_value").innerText)
+        var GBP = Number(document.getElementById("GBP_value").innerText)
+        var JPY = Number(document.getElementById("JPY_value").innerText)
+        var CAD = Number(document.getElementById("CAD_value").innerText)
+        var CHF = Number(document.getElementById("CHF_value").innerText)
+        var AUD = Number(document.getElementById("AUD_value").innerText)
+
+        var chartData = {
+            title: 'Value of money in a given currency',
+            header: ['#', 'PLN', 'EUR', 'GBP', 'JPY', 'CAD', 'CHF', 'AUD'],
+            rows: [
+                ['Currencies', PLN, EUR, GBP, JPY, CAD, CHF, AUD],
+            ]
+        };
+
+        var chart = anychart.column();
+
+
+        chart.data(chartData);
+
+        chart.animation(true);
+        chart.interactivity().hoverMode('single');
+
+        // set axis settings
+        chart.xAxis().value(0).labels(false);
+        chart.xAxis(1).stroke(null).orientation('top');
+        chart.xAxis(2).stroke(null).orientation('bottom');
+        chart.yAxis().title('Change in %');
+        chart.yAxis().labels().format('100%');
+
+        chart.labels(true);
+        chart
+            .tooltip()
+            .title(false)
+            .separator(false)
+            .format('Change in %');
+
+        chart.legend().enabled(true).fontSize(13).padding([0, 0, 20, 0]);
+
+        chart.xGrid().stroke('#ddd').drawLastLine(false);
+
+        chart.container('container');
+
+        chart.draw();
+    });
+
+</script>
+</body>
+</html>
